@@ -310,7 +310,7 @@ main{ position:relative; z-index:1; }
 .btn-demo{ margin-top:.4rem; }
 
 /* =========================================================
-   Services — floating, asymmetric (no cards)
+   Services — price list
    ========================================================= */
 .lede{
   font-family:'Space Grotesk', sans-serif;
@@ -322,23 +322,51 @@ main{ position:relative; z-index:1; }
   margin: 0 0 clamp(3.5rem,8vw,5.5rem);
 }
 
-.floaters{
+.price-list{
+  list-style:none; margin:0; padding:0;
+  max-width:900px;
+  border-top:1px solid var(--line);
+}
+.price-row{
+  position:relative;
   display:grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: clamp(2.5rem,6vw,4.5rem) clamp(1.5rem,5vw,4rem);
-  max-width: 980px;
+  grid-template-columns: 44px 1fr auto;
+  align-items:center;
+  gap:1.4rem;
+  padding:1.7rem .4rem;
+  border-bottom:1px solid var(--line);
+  transition: background .3s var(--ease), padding-left .3s var(--ease);
 }
-.floater{ max-width: 40ch; }
-.floater-icon{ margin-bottom:1.1rem; }
-.floater h3{
-  font-size:1.05rem; font-weight:600; margin:0 0 .55rem; color:var(--paper);
+.price-row::before{
+  content:''; position:absolute; left:0; top:0; bottom:0; width:2px;
+  background: linear-gradient(var(--blue), var(--purple));
+  opacity:0; transition: opacity .3s var(--ease);
 }
-.floater p{ font-size:.94rem; }
+.price-row:hover{
+  background: linear-gradient(90deg, rgba(76,141,255,.06), transparent 70%);
+  padding-left:1rem;
+}
+.price-row:hover::before{ opacity:1; }
 
-.floater-a{ transform: translateY(0); }
-.floater-b{ transform: translateY(2.8rem); }
-.floater-c{ transform: translateY(1rem); }
-.floater-d{ transform: translateY(3.4rem); }
+.price-icon{ width:30px; height:30px; }
+.price-info h3{ font-size:1.05rem; font-weight:600; margin:0 0 .35rem; color:var(--paper); }
+.price-info p{ font-size:.94rem; max-width:52ch; }
+
+.price-tag{ display:flex; flex-direction:column; align-items:flex-end; gap:.15rem; text-align:right; }
+.price-amount{
+  font-family:'Space Grotesk', sans-serif;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight:700; letter-spacing:-.01em; white-space:nowrap;
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.price-note{ font-size:.72rem; letter-spacing:.03em; color:var(--mist); }
+.price-foot{ margin-top:1.6rem; font-size:.82rem; }
+
+@media (max-width: 640px){
+  .price-row{ grid-template-columns: 36px 1fr; gap:.4rem 1rem; }
+  .price-tag{ grid-column:2; flex-direction:row; align-items:baseline; gap:.6rem; text-align:left; margin-top:.3rem; }
+}
 
 /* =========================================================
    Experience
@@ -480,11 +508,6 @@ body.low-light .lede, body.low-light .hero-title{ text-shadow:none; }
 /* =========================================================
    Responsive
    ========================================================= */
-@media (max-width: 900px){
-  .floaters{ grid-template-columns: 1fr; gap:2.4rem; }
-  .floater-a, .floater-b, .floater-c, .floater-d{ transform:none; }
-}
-
 @media (max-width: 760px){
   .nav-links{
     position:absolute; top: calc(100% + 10px); left:0; right:0;
